@@ -1,0 +1,64 @@
+{
+  "name": "node-es6-starter",
+  "version": "1.0.0",
+  "description": "Node.js ES6 starter with Babel & ESLint",
+  "main": "lib/index.js",
+  "watch": {
+    "dev": "./src/**/*.js"
+  },
+  "scripts": {
+    "lint": "eslint src/**",
+    "build": "babel src --out-dir ./lib --source-maps",
+    "prepublish": "npm run build",
+    "start": "node lib/",
+    "debug": "node --inspect-brk ./lib/index.js",
+    "watch": "npm-watch",
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    "coverage": "nyc mocha  --recursive --compilers js:@babel/register",
+    "test-cov": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- -R spec --reporter dot",
+    "test": "./node_modules/.bin/mocha --recursive --compilers js:@babel/register"
+  },
+  "engines": {
+    "node": ">=6.1.0",
+    "npm": ">=3.8.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/palanik/node-es6-starter.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": "G. Pillon",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.1",
+    "@babel/register": "^7.4.0",
+    "babel-plugin-istanbul": "^5.1.1",
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "isparta": "^4.1.1",
+    "mocha": "^3.5.3",
+    "nodemon": "^1.18.10",
+    "npm-watch": "^0.6.0",
+    "nyc": "^13.3.0"
+  },
+  "dependencies": {
+    "bluebird": "latest",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-healthcheck": "^0.1.0",
+    "lodash": "latest",
+    "modern-rcon": "^1.0.3",
+    "morgan": "^1.9.1",
+    "quake3-rcon": "^0.2.1",
+    "socket.io": "^2.2.0"
+  }
+}
