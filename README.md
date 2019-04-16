@@ -1,17 +1,13 @@
 # q3-server-docker-rest-api
 Quake 3 rest API w/ websocket for interacting with RCON.
 
-1. Write node.js source code in ES6 syntax.
-2. Transpile to ES5.
-3. Publish ES5 code to NPM.
-
-
 ### Main Libs
 
 1. Socket.io
 2. Babel.js with [ES2015 preset](http://babeljs.io/docs/plugins/preset-es2015/)
 3. ESLint
 4. node-watch
+5. scaffolded from [palanik/node-es6-starter](https://github.com/palanik/node-es6-starter)
 
 
 ### Coding style
