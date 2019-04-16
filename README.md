@@ -42,6 +42,11 @@ npm run build
 
 ### Run
 #### ES6 code via babel
+
+```
+npm run watch
+```
+
 ```
 npm run dev
 ```
