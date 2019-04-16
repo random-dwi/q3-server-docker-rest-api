@@ -1,4 +1,5 @@
 # q3-server-docker-rest-api
+## Backend for [QUAKE3 Server w/ WebUI](https://github.com/kalik1/q3-server-docker-webUI)
 Quake 3 rest API w/ websocket for interacting with RCON.
 
 ### Main Libs
