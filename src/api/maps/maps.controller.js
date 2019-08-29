@@ -14,8 +14,8 @@ import Q3RCon from 'quake3-rcon'
 import { getMapList } from './maps.utils'
 
 const rcon = new Q3RCon({
-    address: '192.168.120.4',
-    port: 27960, // optional
+    address: process.env.Q3SERV_HOST || '192.168.120.4',
+    port: process.env.Q3SERV_PORT || 27960, // optional
     password: 'uniquake3',
     debug: false // optional
 });
@@ -77,13 +77,6 @@ function saveUpdates(updates, res) {
             if (err) handleError(res)(savedDevice.errors);
             else responseWithResult(res, 203)(savedDevice);
         });
-
-
-        /*return updated.saveBanana()
-          .spread(updated => {
-            console.log(updated);
-            return updated;
-          });*/
     };
 }
 
@@ -128,64 +121,3 @@ export function serverinfo(){
             .catch(handleError(res));
     }
 }
-//
-// // Gets a list of Devices
-// export function index(req, res) {
-//     Device.findBanana()
-//         .then(responseWithResult(res))
-//         .catch(handleError(res));
-// }
-//
-// // Gets a single Gateway from the DB
-// export function show(req, res) {
-//     Device.findByIdBanana(req.params.id)
-//         .then(handleEntityNotFound(res))
-//         .then(responseWithResult(res))
-//         .catch(handleError(res));
-// }
-//
-// // Creates a new Gateway in the DB
-// export function create(req, res) {
-//     const dev = new Device(req.body);
-//     dev.isValid((result) => {
-//         if (!result) handleError(res)(dev.errors);
-//         else Device.findByIdBanana(dev.id)
-//             .then((device) => {
-//                 if (!device) dev.save((err, savedDevice) => {
-//                     responseWithResult(res, 201)(savedDevice);});
-//                 else handleError(res, 501)({id:'Device already exists!'});
-//             })
-//             .catch(handleError(res));
-//
-//     });
-//     /*
-//     Device.findByIdBanana(dev.id)
-//       .then((value) => {
-//         if(!value) dev.save((err, savedDevice) =>{
-//           if (err) handleError(res)(savedDevice.errors);
-//           else handleError(res)('')
-//         });
-//
-//         responseWithResult(res, 201)
-//       })
-//       .catch(handleError(res));*/
-// }
-//
-// // Updates an existing Gateway in the DB
-// export function update(req, res) {
-//     if (req.body._id) {
-//         delete req.body._id;
-//     }
-//     Device.findByIdBanana(req.params.id)
-//         .then(handleEntityNotFound(res))
-//         .then(saveUpdates(req.body, res))
-//         .catch(handleError(res));
-// }
-//
-// // Deletes a Gateway from the DB
-// export function destroy(req, res) {
-//     Device.findByIdBanana(req.params.id)
-//         .then(handleEntityNotFound(res))
-//         .then(removeEntity(res))
-//         .catch(handleError(res));
-// }
