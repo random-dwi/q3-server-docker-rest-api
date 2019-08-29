@@ -16,8 +16,8 @@ import { parseStatus, parseServerInfo } from './rcon.utils'
 const rcon = new Q3RCon({
     address: process.env.Q3SERV_HOST || '192.168.120.4',
     port: process.env.Q3SERV_PORT || 27960, // optional
-    password: 'uniquake3',
-    debug: false // optional
+    password: process.env.Q3SERV_PASS || 'uniquake3',
+    debug: process.env.Q3SERV_RCON_DBG || false // optional
 });
 
 function rconP(cmd) {
