@@ -3,8 +3,8 @@ import Q3RCon from "quake3-rcon";
 import {parseStatus} from './rcon/rcon.utils';
 
 let rcon = new Q3RCon({
-    address: process.env.Q3ADDRESS || '192.168.120.4',
-    port:  process.env.Q3PORT ||27960, // optional
+    address: process.env.Q3SERV_HOST || '192.168.120.4',
+    port:  process.env.Q3SERV_PORT || 27960, // optional
     password:  process.env.Q3PASSWORD || 'uniquake3',
     debug: true // optional
 });
