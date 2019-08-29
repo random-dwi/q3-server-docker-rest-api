@@ -14,8 +14,8 @@ import Q3RCon from 'quake3-rcon'
 import { parseStatus, parseServerInfo } from './rcon.utils'
 
 const rcon = new Q3RCon({
-    address: '192.168.120.4',
-    port: 27960, // optional
+    address: process.env.Q3SERV_HOST || '192.168.120.4',
+    port: process.env.Q3SERV_PORT || 27960, // optional
     password: 'uniquake3',
     debug: false // optional
 });
