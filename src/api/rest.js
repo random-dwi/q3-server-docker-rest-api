@@ -5,8 +5,8 @@ import socketio from 'socket.io';
 import {config, default as restConfigurator} from '../config/express';
 import routes from './index';
 import {registerRconEvents} from './rcon.events'
-import {LogReader} from "../lib/logReader";
-import {LogParser} from "../lib/logParser";
+import {LogReader} from "../log/logReader";
+import {LogParser} from "../log/logParser";
 import {registerLogEvents} from "./log.events";
 
 export default function runServer() {
