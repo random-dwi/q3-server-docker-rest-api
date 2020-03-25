@@ -1,4 +1,3 @@
-const EventEmitter = require('events');
 import Q3RCon from "quake3-rcon";
 import {parseStatus} from './rcon/rcon.utils';
 
@@ -9,19 +8,16 @@ let rcon = new Q3RCon({
     debug: process.env.Q3SERV_RCON_DBG || true // optional
 });
 
-let emitter;
+let io;
 
-export class RconEvents extends EventEmitter {}
-
-export function registerEvents(emt) {
-    emitter = emt;
+export function registerRconEvents(ioServer) {
+    io = ioServer;
     setInterval(emitStatusEvent, 3000);
-    return emitter;
 }
 
-function  emitStatusEvent() {
-    rcon.send('status', function(response) {
+function emitStatusEvent() {
+    rcon.send('status', function (response) {
         let res = parseStatus()(response);
-        emitter.emit('status',res)
+        io.emit('rcon:status', res);
     });
 }
