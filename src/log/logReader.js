@@ -3,29 +3,37 @@ const fs = require('fs'),
 let readBytesCount = 0;
 let fileEndReached = false;
 let fileHandle;
+let logFile;
+let logParser;
+let tryCount = 0;
 
 class LogReader {
 
     constructor() {
     }
 
-    doReadFile(logFile, logParser) {
-        return new Promise((resolve, reject) => {
+    doReadFile(file, parser) {
+        logFile = file;
+        logParser = parser;
 
+
+        setTimeout(tryReadFile, 1000);
+
+        function tryReadFile() {
             fs.open(logFile, 'r', function (err, fd) {
                 if (err) {
-                    reject(err);
+                    console.log(`failed reading log file from ${logFile} (try: ${tryCount})`);
+                    tryCount += 1;
+                    if (tryCount < 10) {
+                        setTimeout(tryReadFile, 10000);
+                    }
                 } else {
+                    console.log(`log file opened: ${logFile}`);
                     fileHandle = fd;
                     readBytes();
                 }
             });
-        }).catch((err) => {
-            return {
-                error: "500",
-                message: err.message
-            };
-        });
+        }
 
         function readBytes() {
             const stats = fs.fstatSync(fileHandle);
