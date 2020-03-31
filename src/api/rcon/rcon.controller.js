@@ -77,13 +77,6 @@ function saveUpdates(updates, res) {
             if (err) handleError(res)(savedDevice.errors);
             else responseWithResult(res, 203)(savedDevice);
         });
-
-
-        /*return updated.saveBanana()
-          .spread(updated => {
-            console.log(updated);
-            return updated;
-          });*/
     };
 }
 
