@@ -79,6 +79,9 @@ class LogParser {
       }
     });
 
+    if (this.currentGame && this.currentGame.exited && logType !== 'Exit' && logType !== 'score') {
+      endGame(this.currentGame, time, logInfo, oldLog)
+    }
   }
 }
 
@@ -184,6 +187,7 @@ function exit(currentGame, time, logInfo, oldLog) {
       currentGame.captureLimitHit = true;
       break;
   }
+  currentGame.exited = true;
 }
 
 function score(currentGame, time, logInfo, oldLog) {
@@ -206,9 +210,16 @@ function red(currentGame, time, logInfo, oldLog) {
   currentGame.teamScores = {red: scoreRed, blue: scoreBlue};
 }
 
-function shutdownGame(currentGame, time, logInfo, oldLog) {
+function endGame(currentGame, time, logInfo, oldLog) {
+  currentGame.exited = false;
   if (!oldLog) {
     emitLogEvent('gameEnd', time, currentGame);
+  }
+}
+
+function shutdownGame(currentGame, time, logInfo, oldLog) {
+  if (!oldLog) {
+    emitLogEvent('gameShutdown', time, currentGame);
   }
 }
 
