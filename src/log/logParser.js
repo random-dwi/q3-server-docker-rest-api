@@ -77,11 +77,11 @@ class LogParser {
         default:
           console.log(`"unhandled log type: ${logType}`);
       }
-    });
 
-    if (this.currentGame && this.currentGame.exited && logType !== 'Exit' && logType !== 'score') {
-      endGame(this.currentGame, time, logInfo, oldLog)
-    }
+      if (this.currentGame && this.currentGame.exited && logType !== 'Exit' && logType !== 'score') {
+        endGame(this.currentGame, time, logInfo, oldLog)
+      }
+    });
   }
 }
 
