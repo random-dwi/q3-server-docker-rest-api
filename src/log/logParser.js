@@ -130,7 +130,7 @@ function clientBegin(currentGame, time, logInfo, oldLog) {
 function clientDisconnect(currentGame, time, logInfo, oldLog) {
   const id = parseInt(logInfo.trim());
   let player = currentGame.players[id];
-  delete currentGame.players[id];
+  player.playing = false;
   if (!oldLog) {
     emitLogEvent('playerDisconnect', time, player);
   }
