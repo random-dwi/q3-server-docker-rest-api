@@ -19,7 +19,7 @@ class LogParser {
 
     lines.map((line) => {
       // match "<time> <logType>: <logInfo>" e.g. "12:23 ClientConnect: 2"
-      let matched = line.match(/(\d+:\d+)\s+(\w+):\s*(.*)/);
+      let matched = line.match(/(\d+:\d+)\s*(\w+):\s*(.*)/);
 
       if (!matched) {
         if (line.trim() !== "" && !line.includes("----------")) {
@@ -112,7 +112,7 @@ function clientUserInfoChanged(currentGame, time, logInfo, oldLog) {
   const id = parseInt(parts[0]);
   const userInfo = extractSlashDelimited(parts[1]);
   userInfo["id"] = id;
-  currentGame.players[id] = userInfo;
+  currentGame.players[id] = {...currentGame.players[id], ...userInfo};
   if (!oldLog) {
     emitLogEvent('playerInfoChanged', time, currentGame.players[id]);
   }
@@ -148,7 +148,7 @@ function kill(currentGame, time, logInfo, oldLog) {
   let killer;
 
   if (killerId === 1022) {
-    killer = {id: 1022, n: "<world>"}
+    killer = {id: 1022, n: "<world>", weaponsUsed: {}, killed: {}, killedBy: {}}
   } else {
     killer = currentGame.players[killerId];
   }
