@@ -101,7 +101,7 @@ function initGame(currentGame, time, logInfo, oldLog) {
 
 function clientConnect(currentGame, time, logInfo, oldLog) {
   const id = parseInt(logInfo.trim());
-  currentGame.players[id] = {id: id, playing: false};
+  currentGame.players[id] = {id: id, playing: false, weaponsUsed: {}, killed: {}, killedBy: {}};
   if (!oldLog) {
     emitLogEvent('playerConnect', time, currentGame.players[id]);
   }
@@ -153,7 +153,27 @@ function kill(currentGame, time, logInfo, oldLog) {
     killer = currentGame.players[killerId];
   }
 
+  if (killerId !== victimId) {
+    if (weapon in killer.weaponsUsed) {
+      killer.weaponsUsed[weapon] += 1;
+    } else {
+      killer.weaponsUsed[weapon] = 1;
+    }
+  }
+
+  if (victimId in killer.killed) {
+    killer.killed[victimId] += 1;
+  } else {
+    killer.killed[victimId] = 1;
+  }
+
   let victim = currentGame.players[victimId];
+
+  if (killerId in victim.killedBy) {
+    victim.killedBy[killerId] += 1;
+  } else {
+    victim.killedBy[killerId] = 1;
+  }
 
   const eventContent = {killer: compactPlayer(killer), victim: compactPlayer(victim), weapon: {id: weaponId, n: weapon}};
   if (!oldLog) {
@@ -192,7 +212,7 @@ function exit(currentGame, time, logInfo, oldLog) {
 
 function score(currentGame, time, logInfo, oldLog) {
   // score: 20  ping: 4  client: 4 Zeh
-  let matched = logInfo.match(/(\d+)\s+ping:\s+\d+\s+client:\s+(\d+)\s+.+/);
+  let matched = logInfo.match(/(-?\d+)\s+ping:\s+\d+\s+client:\s+(\d+)\s+.+/);
 
   const scoreValue = parseInt(matched[1]);
   const id = parseInt(matched[2]);
