@@ -94,6 +94,9 @@ function initGame(currentGame, time, logInfo, oldLog) {
   currentGame.captureLimitHit = false;
   currentGame.properties = extractSlashDelimited(logInfo);
 
+  // add world
+  currentGame.players[1022] = {id: 1022, n: "<world>", playing: true, weaponsUsed: {}, killed: {}, killedBy: {}};
+
   if (!oldLog) {
     emitLogEvent('gameStart', time, currentGame);
   }
@@ -145,13 +148,7 @@ function kill(currentGame, time, logInfo, oldLog) {
   const weaponId = parseInt(matched[3]);
   const weapon = matched[4];
 
-  let killer;
-
-  if (killerId === 1022) {
-    killer = {id: 1022, n: "<world>", weaponsUsed: {}, killed: {}, killedBy: {}}
-  } else {
-    killer = currentGame.players[killerId];
-  }
+  let killer = currentGame.players[killerId];
 
   if (killerId !== victimId) {
     if (weapon in killer.weaponsUsed) {
