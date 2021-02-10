@@ -2,13 +2,17 @@ import {emitLogEvent} from "../api/log.events";
 
 class LogParser {
 
-  constructor() {
+  constructor(logFromBeginning) {
     this.unfinishedLine = "";
     this.currentGame = undefined;
+    this.logFromBeginning = logFromBeginning;
   }
 
   parseString(input, oldLog) {
 
+    if (this.logFromBeginning) {
+      oldLog = false;
+    }
     input = this.unfinishedLine + input;
 
     let lines = input.split(/[\n]/);

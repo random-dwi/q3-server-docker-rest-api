@@ -16,7 +16,6 @@ class LogReader {
         logFile = file;
         logParser = parser;
 
-
         setTimeout(tryReadFile, 1000);
 
         function tryReadFile() {
